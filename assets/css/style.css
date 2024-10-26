@@ -1,0 +1,13 @@
+html{
+	height: 100%;
+}
+body{
+	height: 100%;
+	color: black !important;
+/*	    background: linear-gradient(to right, #009688,#173747);*/
+}
+label{
+	display: inline;
+	text-align: left;
+	float: left;
+}
