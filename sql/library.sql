@@ -70,7 +70,8 @@ CREATE TABLE `Librarian` (
   `Department` VARCHAR(200) NOT NULL,
   `Gender` varchar(255) NOT NULL,
   `RegDate` timestamp DEFAULT current_timestamp(),
-  `updationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp()
+  `updationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
+  `RecoveryKey` VARCHAR(50) NOT NULL DEFAULT 'AUADMIN-MASTER'
 )  ENGINE=InnoDB COLLATE utf8mb4_unicode_ci;
 
 

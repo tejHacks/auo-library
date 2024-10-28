@@ -24,13 +24,13 @@ include('checklogin.php');
     <meta name="author" content="Olamide Olateju Emmanuel">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="keywords" content="Achievers University Library">
-    
-    <meta name="theme-color" content="#19B10E">
+    <meta name="theme-color" content="#7952b3">
+
     <title>ACHIEVERS UNIVERSITY LIBRARY |ADMIN DASHBOARD </title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.css"> -->
     <link rel="stylesheet" type="text/css" href="../assets/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="../assets/font-awesome/css/font-awesome.min.css">
 
@@ -38,20 +38,12 @@ include('checklogin.php');
     <link rel="stylesheet" type="text/css" href="../assets/boxicons/css/boxicons.min.css">
     
 
-<!-- few scripts -->
-    <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.js" defer></script>
-    <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js" defer></script>
-    <script src="../assets/font-awesome/" defer></script>
-    <!-- other sylesheets -->
-    <link rel="stylesheet" href="../assets/boxicons/css/boxicons.css">
-    <link rel="stylesheet" href="../assets/boxicons/css/boxicons.min.css">
 
-    <link rel="stylesheet" href="../assets/style.css">
     <link rel="icon" href="../assets/school.png" type="image/png">
     <style>
             ::-webkit-scrollbar{
     background: #272727;
-   width:12px;
+   width:8px;
 }
 
 ::-webkit-scrollbar-thumb{
@@ -97,7 +89,23 @@ include('checklogin.php');
              transform: translateX(0);
          }
      }
- </style>
+ 
+
+.card {
+    height: 180px; /* Increase card height */
+    display: flex;
+    padding:10px;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem; /* Increase font size for card text */
+}
+
+.card-body {
+    text-align: center;
+}
+
+  </style>
+
 
 </head>
 
@@ -105,7 +113,7 @@ include('checklogin.php');
 
 
 <body>
-<?php include("sidebar.php"); ?>
+<?php include("header.php"); ?>
 
 <div class="container my-4" style="padding-bottom:120px;">
     <p class=" fade-in" style="font-size:18px;font-weight:400;">Welcome Back, <?php echo htmlspecialchars($fullName); ?> </p>
@@ -115,7 +123,103 @@ include('checklogin.php');
     <div class="row fade-in">
 
 
-        
+    <div id="page-content-wrapper" class="flex-grow-1">
+        <div class="container-fluid ">
+            <h1 class="mt-4">Dashboard</h1><hr>
+
+            <div class="row text-uppercase">
+                <div class="col-md-6 py-6 mb-4">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body text-center">
+                            
+                        <i class="fa fa-users fa-5x"></i>
+                            <h5 class="card-title">Total Students Registered</h5>
+                            <p class="card-text"><?php echo $total_students; ?>1032</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Total BOOKS AVAILABLE</h5>
+                            <p class="card-text"><?php echo $total_patients; ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card bg-warning text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Staff Registered</h5>
+                            <p class="card-text"><?php echo $total_appointments; ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card bg-danger text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Suggestions</h5>
+                            <p class="card-text"><?php echo $total_counseling; ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                        <i class="fa fa-book fa-5x"></i>
+                            <h5 class="card-title">Total Issued Books</h5>
+                            <p class="card-text"><?php echo $total_counseling; ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 mb-4">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Currently Borrowed Books</h5>
+                            <p class="card-text"><?php echo $total_counseling; ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card bg-warning text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Tutors</h5>
+                            <p class="card-text"><?php echo $total_counseling; ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 mb-4">
+                    <div class="card bg-danger text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Overdue Books</h5>
+                            <p class="card-text"><?php echo $total_counseling; ?></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <h2 class="mt-4">Recent Activities</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Activity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($activity = mysqli_fetch_assoc($recent_activities)): ?>
+                    <tr>
+                        <td><?php echo $activity['created_at']; ?></td>
+                        <td><?php echo $activity['description']; ?></td>
+                    </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
 
@@ -127,4 +231,23 @@ include('checklogin.php');
     </div>
 
 </body>
+<!-- 
+    <script src="../assets/vendor/jquery/jquery.min.js" defer></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js" defer></script>
+    <script src="../assets/vendor/modernizr/modernizr.js" defer></script>
+    <script src="../assets/vendor/jquery-cookie/jquery.cookie.js" defer></script>
+    <script src="../assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="../assets/vendor/jquery-validation/jquery.validate.js" defer></script>
+    <script src="../assets/vendor/jquery-validation/jquery.validate.min.js" defer></script>
+    <script src="../assets/vendor/switchery/switchery.min.js" defer></script> -->
+    
+    <!-- few scripts -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="../assets/bootstrap-5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+
+     <!-- <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.min.js" defer></script> -->
+    <!-- <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js" defer></script> -->
+    <!-- <script src="../assets/popper/popper.min.js" defer></script> -->
+    <!-- <script src="../assets/popper/popper.min.js.map.json" defer></script> -->
+
 </html>

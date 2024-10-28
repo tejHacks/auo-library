@@ -16,7 +16,7 @@ if (!empty($_SESSION["adminID"])) {
      $row = $result->fetch_assoc();
      $adminid = $row["ID"];
      $fullName = $row["Fullname"];
-     $studentID = $row["LibrarianID"];
+     $adminid = $row["LibrarianID"];
     $email = $row["LibrarianEmail"];
     $contact = $row["Contact"];
     $status = $row["Status"];
@@ -26,6 +26,7 @@ if (!empty($_SESSION["adminID"])) {
     $gender = $row["Gender"];
    $regDate = $row["RegDate"];
    $updatedDate = $row["updationDate"];
+   $recoveryKey = $row["RecoveryKey"];
  }
 
 }
