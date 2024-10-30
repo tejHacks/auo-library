@@ -1,6 +1,5 @@
 <?php
-
-include('checklogin.php');   
+include('checklogin.php');
 ?>
 
 
@@ -14,31 +13,26 @@ include('checklogin.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Achievers University Library">
-    <meta name="theme-color" content="green">
+    <meta name="theme-color" content="#343a40">
     <meta name="application-name" content="Achievers University Library">
     <meta name="robots" content="all">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="green">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#343a40">
     <meta name="description" content="A web application for connecting with Achievers University Library.">
     <meta name="author" content="Olamide Olateju Emmanuel">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="keywords" content="Achievers University Library">
-    <meta name="theme-color" content="#7952b3">
+    <meta name="keywords" content="Achievers University Library, ACHIEVERS UNIVERSITY LIBRARY, Auo library">
+    <meta name="theme-color" content="#343a40">
 
     <title>ACHIEVERS UNIVERSITY LIBRARY |ADMIN DASHBOARD </title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" type="text/css" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.css"> -->
     <link rel="stylesheet" type="text/css" href="../assets/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="../assets/font-awesome/css/font-awesome.min.css">
-
     <link rel="stylesheet" type="text/css" href="../assets/boxicons/css/boxicons.css">
     <link rel="stylesheet" type="text/css" href="../assets/boxicons/css/boxicons.min.css">
-    
-
-
     <link rel="icon" href="../assets/school.png" type="image/png">
     <style>
             ::-webkit-scrollbar{
@@ -231,23 +225,7 @@ include('checklogin.php');
     </div>
 
 </body>
-<!-- 
-    <script src="../assets/vendor/jquery/jquery.min.js" defer></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.js" defer></script>
-    <script src="../assets/vendor/modernizr/modernizr.js" defer></script>
-    <script src="../assets/vendor/jquery-cookie/jquery.cookie.js" defer></script>
-    <script src="../assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
-    <script src="../assets/vendor/jquery-validation/jquery.validate.js" defer></script>
-    <script src="../assets/vendor/jquery-validation/jquery.validate.min.js" defer></script>
-    <script src="../assets/vendor/switchery/switchery.min.js" defer></script> -->
-    
-    <!-- few scripts -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
-    <script src="../assets/bootstrap-5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+<script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 
-     <!-- <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.min.js" defer></script> -->
-    <!-- <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js" defer></script> -->
-    <!-- <script src="../assets/popper/popper.min.js" defer></script> -->
-    <!-- <script src="../assets/popper/popper.min.js.map.json" defer></script> -->
 
 </html>

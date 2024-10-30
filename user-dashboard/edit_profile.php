@@ -9,13 +9,13 @@ $messageType = '';
 // Update profile logic
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get form data
-    $fullName = $_POST['fullName'];
-    $email = $_POST['email'];
-    $mobile = $_POST['mobile'];
-    $studentid = $_POST['studentID'];
-    $gender = $_POST['gender'];
-    $level = $_POST['level'];
-    $course = $_POST['course'];
+    $fullName = htmlspecialchars($_POST['fullName']);
+    $email = htmlspecialchars($_POST['email']);
+    $mobile = htmlspecialchars($_POST['mobile']);
+    $studentid = htmlspecialchars($_POST['studentID']);
+    $gender = htmlspecialchars($_POST['gender']);
+    $level = htmlspecialchars($_POST['level']);
+    $course = htmlspecialchars($_POST['course']);
 
 
     // Update query

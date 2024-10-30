@@ -107,14 +107,71 @@ CREATE TABLE Lecturers(
 )  ENGINE=InnoDB COLLATE utf8mb4_unicode_ci;
 
 
-CREATE TABLE `tblissuedbookdetails` (
-  `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `BookId` int(11) DEFAULT NULL,
-  `BookTitle` varchar(255) DEFAULT NULL,
-  `Fullname` varchar(255) DEFAULT NULL,
-  `StudentID` varchar(150) DEFAULT NULL,
-  `IssuesDate` timestamp NULL DEFAULT current_timestamp(),
-  `ReturnDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
-  `RetrunStatus` int(1) DEFAULT NULL,
-  `fine` int(11) DEFAULT NULL
+
+
+
+
+CREATE TABLE Books (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `bookTitle` VARCHAR(255) NOT NULL,
+    `bookID` VARCHAR(50) UNIQUE NOT NULL,
+    `author` VARCHAR(100) NOT NULL,
+    `edition` VARCHAR(50),
+    `isbn` VARCHAR(20) UNIQUE NOT NULL,
+    `yearOfRelease` INT(6),
+    `category` VARCHAR(100),
+    `publisher` VARCHAR(100),
+    `language` VARCHAR(50),
+    `pages` INT,
+    `availability` ENUM('available', 'checked_out') DEFAULT 'available',
+    `summary` TEXT,
+    `addedDate` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `coverImage` VARCHAR(255),
+    `rating` DECIMAL(2, 1),
+   `units` INT DEFAULT 0, 
+    `keywords` VARCHAR(255)
+);
+
+INSERT INTO Books 
+    (bookTitle, bookID, author, edition, isbn, yearOfRelease, category, publisher, language, pages, availability, summary, coverImage, rating, keywords)
+VALUES
+    ('The Great Gatsby', 'BG01', 'F. Scott Fitzgerald', '1st', '9780743273565', 1925, 'Fiction', 'Scribner', 'English', 180, 'available', 'A story of the mysteriously wealthy Jay Gatsby and his love for the beautiful Daisy Buchanan.', 'great_gatsby.jpg', 4.3, 'classic,wealth,1920s'),
+    ('To Kill a Mockingbird', 'BG02', 'Harper Lee', '1st', '9780061120084', 1960, 'Fiction', 'J.B. Lippincott & Co.', 'English', 281, 'available', 'A gripping, heart-wrenching, and wholly remarkable tale of coming-of-age in a South poisoned by virulent prejudice.', 'to_kill_a_mockingbird.jpg', 4.8, 'racism,justice,coming-of-age'),
+    ('1984', 'BG03', 'George Orwell', '1st', '9780451524935', 1949, 'Dystopian', 'Secker & Warburg', 'English', 328, 'available', 'A dystopian novel set in a totalitarian society ruled by Big Brother.', '1984.jpg', 4.2, 'dystopia,totalitarianism,politics'),
+    ('Moby Dick', 'BG04', 'Herman Melville', '1st', '9781503280786', 1851, 'Adventure', 'Harper & Brothers', 'English', 585, 'available', 'The narrative of Captain Ahab\'s obsessive quest to kill the giant white whale, Moby Dick.', 'moby_dick.jpg', 3.9, 'adventure,obsession,whale'),
+    ('Pride and Prejudice', 'BG05', 'Jane Austen', '1st', '9781503290563', 1813, 'Romance', 'T. Egerton', 'English', 432, 'available', 'A romantic novel that charts the emotional development of the protagonist, Elizabeth Bennet.', 'pride_and_prejudice.jpg', 4.6, 'romance,class,19th century'),
+    ('The Catcher in the Rye', 'BG06', 'J.D. Salinger', '1st', '9780316769488', 1951, 'Fiction', 'Little, Brown and Company', 'English', 277, 'available', 'A novel about teenage rebellion and alienation.', 'catcher_in_the_rye.jpg', 4.0, 'rebellion,teenage,identity'),
+    ('Brave New World', 'BG07', 'Aldous Huxley', '1st', '9780060850524', 1932, 'Dystopian', 'Chatto & Windus', 'English', 268, 'available', 'A dystopian novel about a technologically advanced future society.', 'brave_new_world.jpg', 4.4, 'dystopia,society,technology'),
+    ('The Hobbit', 'BG08', 'J.R.R. Tolkien', '1st', '9780547928227', 1937, 'Fantasy', 'George Allen & Unwin', 'English', 310, 'available', 'A fantasy novel that follows the journey of Bilbo Baggins.', 'the_hobbit.jpg', 4.7, 'fantasy,adventure,jewelry');
+
+
+USE `auolibrary`;  -- Make sure to select the database first
+
+
+CREATE TABLE BorrowRequests (
+    `request_id` INT AUTO_INCREMENT PRIMARY KEY,
+    `student_id` VARCHAR(20),                  -- Matches StudentID in Student table
+    `bookID` VARCHAR(50),                      -- Matches bookID in Books table
+
+    -- Borrower Information
+    `borrower_name` VARCHAR(200) NOT NULL,     -- Full name of the borrower (retrieved from Student table)
+    `borrower_role` ENUM('Student', 'Staff') DEFAULT 'Student',
+    `mobile` VARCHAR(30),                       -- Adjusted to match MobileNumber in Student table
+    `course` VARCHAR(255),
+    `level` VARCHAR(30),
+
+    -- Book Information
+    `book_title` VARCHAR(255) NOT NULL,        -- Title of the book being borrowed (retrieved from Books table)
+    `units_requested` INT DEFAULT 1,           -- Number of units to borrow (defaults to 1)
+    `publisher` VARCHAR(100),
+    `yearOfRelease` VARCHAR(4),                -- Year of release as VARCHAR
+
+    -- Request Status
+    `request_date` DATETIME DEFAULT CURRENT_TIMESTAMP, 
+    `status` ENUM('Pending', 'Approved', 'Rejected', 'Returned') DEFAULT 'Pending',
+
+    -- Foreign Key Constraints
+    CONSTRAINT `fk_borrow_student` FOREIGN KEY (`student_id`) REFERENCES Student(`StudentID`) ON DELETE SET NULL,
+    CONSTRAINT `fk_borrow_book` FOREIGN KEY (`bookID`) REFERENCES Books(`bookID`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+

@@ -14,9 +14,9 @@ if (!empty($_SESSION["adminID"])) {
 
  if($result->num_rows >0){
      $row = $result->fetch_assoc();
-     $adminid = $row["ID"];
+     $librarianId = $row["ID"];
      $fullName = $row["Fullname"];
-     $adminid = $row["LibrarianID"];
+     $librarianID = $row["LibrarianID"];
     $email = $row["LibrarianEmail"];
     $contact = $row["Contact"];
     $status = $row["Status"];

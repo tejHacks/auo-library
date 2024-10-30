@@ -1,16 +1,16 @@
 <?php
 
-// Ensure user is logged in and session contains user information
-include('checklogin.php');
-
+include('checklogin.php');   
 ?>
 
 
 
+<!-- THE HTML PAGE -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <!-- Site Metas -->
+    <!-- Site Metas -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Achievers University Library">
@@ -26,7 +26,7 @@ include('checklogin.php');
     <meta name="keywords" content="Achievers University Library">
     
     <meta name="theme-color" content="#19B10E">
-    <title>ACHIEVERS UNIVERSITY LIBRARY | STUDENT PROFILE </title>
+    <title>ACHIEVERS UNIVERSITY LIBRARY | STUDENT DASHBOARD </title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
@@ -41,35 +41,91 @@ include('checklogin.php');
 <!-- few scripts -->
     <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.js" defer></script>
     <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js" defer></script>
-    <script src="../assets/font-awesome/" defer></script>
+   
     <!-- other sylesheets -->
     <link rel="stylesheet" href="../assets/boxicons/css/boxicons.css">
     <link rel="stylesheet" href="../assets/boxicons/css/boxicons.min.css">
 
     <link rel="stylesheet" href="../assets/style.css">
     <link rel="icon" href="../assets/school.png" type="image/png">
+    <style>
+            ::-webkit-scrollbar{
+    background: #272727;
+   width:12px;
+}
+
+::-webkit-scrollbar-thumb{
+    background: #808080;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover{
+    background-color: #666;
+}
+
+</style>
+
+
+<style>
+     
+
+     /* Container Styles */
+     .content-box {
+         border-radius: 10px;
+         background-color: #f8f9fa;
+         padding: 20px;
+         /* border:2px solid black; */
+         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+         transition: transform 0.3s ease, background-color 0.3s ease;
+     }
+
+     .content-box:hover {
+         transform: translateY(-5px);
+         background-color: #f1f1f1;
+     }
+
+
+     /* Animations */
+     .fade-in {
+         opacity: 0;
+         transform: translateX(-50px);
+         animation: fadeIn 0.5s ease forwards;
+     }
+
+     @keyframes fadeIn {
+         to {
+             opacity: 1;
+             transform: translateX(0);
+         }
+     }
+ </style>
 
 </head>
 
-<body>
 
+
+
+<body>
 <?php include("nav.php"); ?>
 
-
-
-<div class="container my-4" style="padding-bottom:120px;">
-    <p class=" fade-in" style="font-size:18px;font-weight:400;">Hi, <?php echo htmlspecialchars($fullName); ?> </p>
-    <hr>
-
-  
-    <div class="row fade-in">
-    <h2 class="text-center">READING PLANS</h2>
-    
-
-
+<!-- <div class="container my-4" style="padding-bottom:120px;"> -->
+<div class="content-wrapper my-4 container-fluid">
+         <div class="container">
+        <div class="row pad-botm">
+            <div class="col-md-12">
+                <h4 class="header-line">FIND YOUR WAY TO / AROUND THE LIBRARY</h4>
+                <hr>
     </div>
 
-</div>
 
-</body>
 
+
+
+        </div>
+
+         </div>
+
+         </div>
+</body> 
+
+
+</html>

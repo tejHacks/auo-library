@@ -28,7 +28,7 @@ if (!empty($_SESSION["studentID"])) {
 
 }
  else {
-    header("location:../login.php");
+    header("location:../index.php");
 }
 
 

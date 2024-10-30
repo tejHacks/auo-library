@@ -11,34 +11,28 @@ include('checklogin.php');
 <html lang="en">
 <head>
     <!-- Site Metas -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Achievers University Library">
-    <meta name="theme-color" content="green">
+    <meta name="theme-color" content="#343a40">
     <meta name="application-name" content="Achievers University Library">
     <meta name="robots" content="all">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="green">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#343a40">
     <meta name="description" content="A web application for connecting with Achievers University Library.">
     <meta name="author" content="Olamide Olateju Emmanuel">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="keywords" content="Achievers University Library">
-    <meta name="theme-color" content="#7952b3">
+    <meta name="keywords" content="Achievers University Library, ACHIEVERS UNIVERSITY LIBRARY, Auo library">
+    <meta name="theme-color" content="#343a40">
 
-    <title>ACHIEVERS UNIVERSITY LIBRARY |ADMIN DASHBOARD </title>
+
+    <title>ACHIEVERS UNIVERSITY LIBRARY |ADMIN PROFILE </title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" type="text/css" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.css"> -->
     <link rel="stylesheet" type="text/css" href="../assets/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="../assets/font-awesome/css/font-awesome.min.css">
-
     <link rel="stylesheet" type="text/css" href="../assets/boxicons/css/boxicons.css">
     <link rel="stylesheet" type="text/css" href="../assets/boxicons/css/boxicons.min.css">
-    
-
-
     <link rel="icon" href="../assets/school.png" type="image/png">
     <style>
             ::-webkit-scrollbar{
@@ -142,7 +136,7 @@ include('checklogin.php');
                     </tr>
                     <tr>
                         <th>Admin ID/ Number:</th>
-                        <td><?php echo htmlspecialchars($adminid); ?></td>
+                        <td><?php echo htmlspecialchars($librarianID); ?></td>
                     </tr>
                     <tr>
                         <th>Mobile:</th>
@@ -184,7 +178,7 @@ include('checklogin.php');
     </div>
     <a href="edit_profile.php" class="btn btn-primary">Edit Profile</a>
     <button onclick="window.print()" class="btn btn-danger">Print Profile</button>
-    <a href="password-change.php" class=" text-light btn btn-success">Change Password</a>
+    <a href="edit_profile.php" class=" text-light btn btn-success">Change Password</a>
 </div>
 
         </div>
@@ -194,5 +188,7 @@ include('checklogin.php');
         </div>
         </div>
         </body>
+
+<script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 
         </html>
