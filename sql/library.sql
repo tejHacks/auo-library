@@ -150,12 +150,13 @@ USE `auolibrary`;  -- Make sure to select the database first
 
 CREATE TABLE BorrowRequests (
     `request_id` INT AUTO_INCREMENT PRIMARY KEY,
+    `userKey` VARCHAR(20) NOT NULL,
     `student_id` VARCHAR(20),                  -- Matches StudentID in Student table
     `bookID` VARCHAR(50),                      -- Matches bookID in Books table
 
     -- Borrower Information
     `borrower_name` VARCHAR(200) NOT NULL,     -- Full name of the borrower (retrieved from Student table)
-    `borrower_role` ENUM('Student', 'Staff') DEFAULT 'Student',
+    `borrower_role` varchar(20),
     `mobile` VARCHAR(30),                       -- Adjusted to match MobileNumber in Student table
     `course` VARCHAR(255),
     `level` VARCHAR(30),
@@ -168,10 +169,66 @@ CREATE TABLE BorrowRequests (
 
     -- Request Status
     `request_date` DATETIME DEFAULT CURRENT_TIMESTAMP, 
-    `status` ENUM('Pending', 'Approved', 'Rejected', 'Returned') DEFAULT 'Pending',
+    `status` varchar(20) DEFAULT 'Pending',
 
     -- Foreign Key Constraints
     CONSTRAINT `fk_borrow_student` FOREIGN KEY (`student_id`) REFERENCES Student(`StudentID`) ON DELETE SET NULL,
     CONSTRAINT `fk_borrow_book` FOREIGN KEY (`bookID`) REFERENCES Books(`bookID`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+
+
+DROP TABLE IF EXISTS ReadingPlans;
+CREATE TABLE ReadingPlans (
+    plan_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id VARCHAR(20) NOT NULL,
+    plan_name VARCHAR(100) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    description TEXT,
+    status VARCHAR(20) DEFAULT 'Pending'  -- Changed to VARCHAR
+);
+
+
+CREATE TABLE ToDoList (
+    task_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id VARCHAR(20) NOT NULL,  -- Foreign key for the student
+    task_description TEXT NOT NULL,
+    due_date DATE,
+    status VARCHAR(20) DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE wishlist (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id VARCHAR(50) NOT NULL,
+    book_id varchar(11),
+    book_title VARCHAR(255),
+    book_description TEXT,
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    note TEXT
+    
+);
+
+CREATE TABLE Suggestions (
+    suggestion_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id VARCHAR(20) NOT NULL,  -- Foreign key for the student
+    experience TEXT NOT NULL,         -- Field for sharing reading experience
+    app_rating INT CHECK(app_rating BETWEEN 1 AND 5), -- Rating from 1 to 5
+    feature_request TEXT,             -- Field for requesting new features
+    additional_feedback TEXT,         -- Any other feedback/comments
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE StudyMaterials (
+    material_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    description TEXT,
+    course_code VARCHAR(20) NOT NULL,
+    department VARCHAR(50) NOT NULL,
+    file_path VARCHAR(255) NOT NULL,   -- Path where the file is stored
+    upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    uploaded_by VARCHAR(50)            -- Name or ID of the admin who uploaded the file
+);

@@ -103,7 +103,7 @@ include('checklogin.php');
                 <div class="content-box">
                     <h5 class="text-success">Wishlist <i class="fa fa-heart fa-2x"></i></h5>
                     <p>Create a list of books to read or study later.</p>
-                    <a class="btn btn-outline-success" href="wishlist_start.php">Start a Wishlist</a>
+                    <a class="btn btn-outline-success" href="wishlist_add.php">Start a Wishlist</a>
                 </div>
             </div>
 
@@ -112,7 +112,7 @@ include('checklogin.php');
                 <div class="content-box">
                     <h5 class="text-success">To-Do List <i class="fa fa-list-ol fa-2x"></i></h5>
                     <p>Stay organized with a personalized checklist.</p>
-                    <a class="btn btn-outline-success" href="to_do.php">Create a To-Do List</a>
+                    <a class="btn btn-outline-success" href="todo_list.php">Create a To-Do List</a>
                 </div>
             </div>
 
@@ -121,7 +121,7 @@ include('checklogin.php');
                 <div class="content-box">
                     <h5 class="text-success">Study Materials <i class="fa fa-file-text-o fa-2x"></i></h5>
                     <p>Request study materials from the library.</p>
-                    <a class="btn btn-outline-success" href="materials.php">View Study Materials</a>
+                    <a class="btn btn-outline-success" href="study_materials.php">View Study Materials</a>
                 </div>
             </div>
 

@@ -46,7 +46,7 @@
                     </li>
                     <li class="nav-item">
                         <a style="font-size:19px;font-weight:500;" class="nav-link text-light"
-                           href="library-resources.php">LIBRARY RESOURCES <i class="fa fa-files-o"></i></a>
+                           href="library_resources.php">LIBRARY RESOURCES <i class="fa fa-files-o"></i></a>
                     </li>
                     <li class="nav-item">
                         <a style="font-size:19px;font-weight:500;" class="nav-link text-light"

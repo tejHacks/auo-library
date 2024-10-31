@@ -1,155 +1,83 @@
 <?php
+session_start();
+include('checklogin.php'); // Ensure the user is logged in
+include('config.php'); // Database connection
 
-include('checklogin.php');   
+// Define the student's ID from the session or from `checklogin.php`
+$studentID = $_SESSION['student_id'] ?? '';
+
+// Fetch user's borrowed books
+$borrowedBooks = [];
+if ($studentID) {
+    $sql = "SELECT * FROM BorrowedBooks WHERE student_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $studentID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    while ($row = $result->fetch_assoc()) {
+        $borrowedBooks[] = $row;
+    }
+
+    $stmt->close();
+}
+$conn->close();
 ?>
-
-
-
-<!-- THE HTML PAGE -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Site Metas -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Achievers University Library">
     <meta name="theme-color" content="green">
     <meta name="application-name" content="Achievers University Library">
-    <meta name="robots" content="all">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="green">
     <meta name="description" content="A web application for connecting with Achievers University Library.">
-    <meta name="author" content="Olamide Olateju Emmanuel">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="keywords" content="Achievers University Library">
-    
-    <meta name="theme-color" content="#19B10E">
-    <title>ACHIEVERS UNIVERSITY LIBRARY | STUDENT DASHBOARD </title>
+    <title>ACHIEVERS UNIVERSITY LIBRARY | BORROWED BOOKS</title>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" type="text/css" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../assets/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" type="text/css" href="../assets/font-awesome/css/font-awesome.min.css">
-
-    <link rel="stylesheet" type="text/css" href="../assets/boxicons/css/boxicons.css">
-    <link rel="stylesheet" type="text/css" href="../assets/boxicons/css/boxicons.min.css">
-    
-
-<!-- few scripts -->
-    <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.js" defer></script>
-    <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js" defer></script>
-   
-    <!-- other sylesheets -->
-    <link rel="stylesheet" href="../assets/boxicons/css/boxicons.css">
+    <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../assets/boxicons/css/boxicons.min.css">
-
     <link rel="stylesheet" href="../assets/style.css">
     <link rel="icon" href="../assets/school.png" type="image/png">
-    <style>
-            ::-webkit-scrollbar{
-    background: #272727;
-   width:12px;
-}
-
-::-webkit-scrollbar-thumb{
-    background: #808080;
-    border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover{
-    background-color: #666;
-}
-
-</style>
-
-
-<style>
-     
-
-     /* Container Styles */
-     .content-box {
-         border-radius: 10px;
-         background-color: #f8f9fa;
-         padding: 20px;
-         /* border:2px solid black; */
-         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-         transition: transform 0.3s ease, background-color 0.3s ease;
-     }
-
-     .content-box:hover {
-         transform: translateY(-5px);
-         background-color: #f1f1f1;
-     }
-
-
-     /* Animations */
-     .fade-in {
-         opacity: 0;
-         transform: translateX(-50px);
-         animation: fadeIn 0.5s ease forwards;
-     }
-
-     @keyframes fadeIn {
-         to {
-             opacity: 1;
-             transform: translateX(0);
-         }
-     }
- </style>
-
+    <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
-
-
-
-
 <body>
-<?php include("nav.php"); ?>
-
-<!-- <div class="container my-4" style="padding-bottom:120px;"> -->
-<div class="content-wrapper my-4 container-fluid">
-         <div class="container">
-        <div class="row pad-botm">
-            <div class="col-md-12">
-                <h4 class="header-line">Manage Issued Books</h4>
-                <hr>
-    </div>
+    <?php include("nav.php"); ?>
     
+    <div class="container my-4">
+        <h2 class="text-center">Your Borrowed Books</h2>
+        <hr>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Advanced Tables -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                          Issued Books 
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Book Name</th>
-                                        
-                                            <th>Book ID</th>
-                                            <th>ISBN </th>
-                                            <th>Issued Date</th>
-                                            <th>Return Date</th>
-                                            <th>Return Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="odd gradeX">
-                                            <td class="center">1</td>
-                                            <td class="center">The Great Gatsby</td>
-                                            <td class="center">BG01</td>
-                                            <td class="center">9780743273565 </td>
-                                            <td class="center">2024-01-31 08:23:03</td>
-                                            <td class="center">2024-01-31 08:23:11</td>
-                                            <td class="center">NOT YET DUE</td>
-                                          
-                                           
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Book ID</th>
+                    <th>Title</th>
+                    <th>Publisher</th>
+                    <th>Year Published</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($borrowedBooks)): ?>
+                    <?php foreach ($borrowedBooks as $book) : ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($book['bookID']); ?></td>
+                            <td><?php echo htmlspecialchars($book['bookTitle']); ?></td>
+                            <td><?php echo htmlspecialchars($book['publisher']); ?></td>
+                            <td><?php echo htmlspecialchars($book['yearOfRelease']); ?></td>
+                            <td><?php echo htmlspecialchars($book['status']); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="5" class="text-center">No borrowed books found.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 </body>
-
 </html>

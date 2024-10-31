@@ -8,8 +8,6 @@ $successMessage = "";
 $bookDetails = "";
 $errorMessage = "";
 
-// Retrieve session variables from checklogin.php
-//  ?? ''; // Adjust this based on your actual DB schema
 
 // Handle book search via AJAX
 if (isset($_GET['query'])) {
@@ -23,7 +21,7 @@ if (isset($_GET['query'])) {
         $result = $stmt->get_result();
         while ($row = $result->fetch_assoc()) {
             $books[] = [
-                'bookID' => $row['id'], // Ensure the correct field name
+                'bookID' => $row['bookID'], // Ensure the correct field name
                 'bookTitle' => $row['bookTitle'],
                 'author' => $row['author'],
                 'yearPublished' => $row['yearOfRelease'],
@@ -43,7 +41,7 @@ if (isset($_GET['query'])) {
 }
 
 // Handle form submission to borrow a book
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+if (isset($_POST['submit'])) {
     // Sanitize and prepare book input data
     $bookID = htmlspecialchars($_POST['bookID']);
     $bookTitle = htmlspecialchars($_POST['bookTitle']);
@@ -53,84 +51,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Ensure necessary data is present
     // Debugging: Output values for inspection
   $studentID =  htmlspecialchars($studentID);
+  $key = htmlspecialchars($studentID);
  $fullName = htmlspecialchars($fullName) ;
   $mobile =  htmlspecialchars($mobile);
   $course =  htmlspecialchars($course);
    $level = htmlspecialchars($level);
-   $bookID = htmlspecialchars($bookID);
-   $bookTitle = htmlspecialchars($bookTitle);
-    $publisher = htmlspecialchars($publisher) ;
-    $yearPublished =  htmlspecialchars($yearPublished) ;
-    $borrowerRole =  htmlspecialchars($borrowerRole) ;
+   
+
+    $unitsRequested = 1; // You can change this if your form allows multiple units to be borrowed
+    $status = 'Pending';
 
 
+   
+        // Debugging: Output values for inspection
 
-    // Debugging: Output values for inspection
-    // echo "<pre>";
-    // echo "Student ID: " . htmlspecialchars($studentID) . "<br>";
-    // echo "Full Name: " . htmlspecialchars($fullName) . "<br>";
-    // echo "Mobile: " . htmlspecialchars($mobile) . "<br>";
-    // echo "Course: " . htmlspecialchars($course) . "<br>";
-    // echo "Level: " . htmlspecialchars($level) . "<br>";
-    // echo "Book ID: " . htmlspecialchars($bookID) . "<br>";
-    // echo "Book Title: " . htmlspecialchars($bookTitle) . "<br>";
-    // echo "Publisher: " . htmlspecialchars($publisher) . "<br>";
-    // echo "Year Published: " . htmlspecialchars($yearPublished) . "<br>";
-    // echo "Borrower Role: " . htmlspecialchars($borrowerRole) . "<br>";
-    // echo "</pre>";
 
-    if (empty($bookID) || empty($bookTitle) || empty($studentID) || empty($fullName)) {
-        $errorMessage = "Error: Missing required fields.";
-        echo $errorMessage; // Output error message for debugging
-    } else {
         // Insert the borrow request into BorrowRequests table
-        $stmt = $conn->prepare("INSERT INTO BorrowRequests (
-            student_id, 
-            bookID, 
-            borrower_name, 
-            borrower_role, 
-            mobile, 
-            course, 
-            level, 
-            book_title, 
-            units_requested, 
-            publisher, 
-            yearOfRelease
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO `BorrowRequests` (`userKey`, `student_id`, `bookID`, `borrower_name`, `borrower_role`, `mobile`, `course`, `level`, `book_title`, `units_requested`, `publisher`, `yearOfRelease`, `status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         
-        if ($stmt === false) {
-            die("Error preparing statement: " . $conn->error);
-        }
-
-        // Set default value for units_requested to 1
-        $unitsRequested = 1; // You can change this if your form allows multiple units to be borrowed
-        
-        // Bind parameters
-        $stmt->bind_param("sssssssssss", 
-            $studentID, 
-            $bookID, 
-            $fullName, 
-            $borrowerRole, 
-            $mobile, 
-            $course, 
-            $level, 
-            $bookTitle, 
-            $unitsRequested, 
-            $publisher, 
-            $yearPublished
-        );
+        // bind parameters to be sent to the database too:
+        $stmt->bind_param("sssssssssssss", $key,$studentID, $bookID, $fullName, $borrowerRole, $mobile, $course, $level, $bookTitle, $unitsRequested, $publisher, $yearPublished,$status);
 
         if ($stmt->execute()) {
-            $successMessage = "Borrow request submitted successfully!";
-            echo $successMessage; // Output success message
+            echo "<pre>";
+            echo "Student ID: " . htmlspecialchars($studentID) . "<br>";
+            echo "Key: " . htmlspecialchars($key) . "<br>";
+            echo "Book ID: " . htmlspecialchars($bookID) . "<br>";
+            echo "Full Name: " . htmlspecialchars($fullName) . "<br>";
+            echo "Borrower Role: " . htmlspecialchars($borrowerRole) . "<br>";
+            echo "Mobile: " . htmlspecialchars($mobile) . "<br>";
+            echo "Course: " . htmlspecialchars($course) . "<br>";
+            echo "Level: " . htmlspecialchars($level) . "<br>";
+            echo "Book Title: " . htmlspecialchars($bookTitle) . "<br>";
+            echo "Units Requested : " . htmlspecialchars($unitsRequested) . " <br>";
+            echo "Publisher: " . htmlspecialchars($publisher) . "<br>";
+            echo "Year Published: " . htmlspecialchars($yearPublished) . "<br>";
+            echo "Status: " . htmlspecialchars($status) . "<br>";
+            echo "</pre>";
+            header("location:home.php");
+            
         } else {
             // Improved error handling
-            error_log("Insert Error: " . $stmt->error); // Log error for debugging
-            $errorMessage = "Error: Unable to submit borrow request. Please try again later.";
-            echo $errorMessage; // Output error message for debugging
+            echo "Insert Error: " . $stmt->error; // Log error for debugging
+            // $errorMessage = "Error: Unable to submit borrow request. Please try again later.";
+            // echo $errorMessage; // Output error message for debugging
         }
+       
     }
-}
+
 
 ?>
 
@@ -186,14 +154,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         <h2 class="text-center">Borrow a Book</h2>
         <hr>
 
-        <?php if (!empty($successMessage)) : ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <?php echo $successMessage; ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
+    
 
-        <form method="post" action="borrow.php">
+        <form method="post" action="borrow.php" enctype="application/x-www-form-urlencoded">
             <div class="mb-3">
                 <label for="search" class="form-label">Search for a Book</label>
                 <input type="text" class="form-control" id="search" name="search" onkeyup="searchBooks()" autocomplete="off" required>
@@ -204,6 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             <!-- Book Details Section -->
             <div class="book-details" id="bookDetails">
                 <h5>Book Details</h5>
+                <p><strong>Book ID:</strong> <span id="detailBookID"></span></p>
                 <p><strong>Title:</strong> <span id="detailTitle"></span></p>
                 <p><strong>Author:</strong> <span id="detailAuthor"></span></p>
                 <p><strong>Year Published:</strong> <span id="detailYear"></span></p>
@@ -260,6 +224,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             document.getElementById('yearPublished').value = book.yearPublished;
 
             // Update the displayed book details
+            document.getElementById('detailBookID').textContent = book.bookID;
             document.getElementById('detailTitle').textContent = book.bookTitle;
             document.getElementById('detailAuthor').textContent = book.author;
             document.getElementById('detailYear').textContent = book.yearPublished;
