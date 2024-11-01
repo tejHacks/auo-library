@@ -12,9 +12,9 @@
              aria-labelledby="offcanvasNavbarDarkLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title text-light navText" id="offcanvasNavbarDarkLabel"
-                    style="font-size:19px;font-weight:600;">
+                    style="font-size:19px;font-weight:600;border-bottom:2px solid white;">
                     AUO LIBRARY <i class="bx bx-library"></i>
-                </h5>
+                </h5><hr class="divider text-light">
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
             </div>
@@ -34,7 +34,7 @@
                     </li>
                     <li class="nav-item">
                         <a style="font-size:19px;font-weight:500;" class="nav-link text-light"
-                           href="wishlist.php">WISHLIST <i class="bx bxs-star"></i></a>
+                           href="wishlist.php">WISHLIST <i class="fa fa-heart"></i></a>
                     </li>
                     <li class="nav-item">
                         <a style="font-size:19px;font-weight:500;" class="nav-link text-light"
@@ -46,11 +46,11 @@
                     </li>
                     <li class="nav-item">
                         <a style="font-size:19px;font-weight:500;" class="nav-link text-light"
-                           href="library_resources.php">LIBRARY RESOURCES <i class="fa fa-files-o"></i></a>
+                           href="study_materials.php">LIBRARY RESOURCES <i class="fa fa-files-o"></i></a>
                     </li>
                     <li class="nav-item">
                         <a style="font-size:19px;font-weight:500;" class="nav-link text-light"
-                           href="set_reading_goals.php">SET READING GOALS <i class="fa fa-calendar-check-o"></i></a>
+                           href="reading_plans.php">READING PLANS <i class="fa fa-calendar-check-o"></i></a>
                     </li>
                     <li class="nav-item">
                         <a style="font-size:19px;font-weight:500;" class="nav-link btn-danger btn btn-lg text-light"

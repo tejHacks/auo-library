@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     <meta name="theme-color" content="green">
     <meta name="application-name" content="Achievers University Library">
     <meta name="description" content="A web application for connecting with Achievers University Library.">
-    <title>ACHIEVERS UNIVERSITY LIBRARY | BORROW A BOOK</title>
+    <title>AUO LIBRARY | SEARCH FOR A BOOK</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">

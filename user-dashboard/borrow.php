@@ -106,12 +106,12 @@ $stmt = $conn->prepare("INSERT INTO `BorrowRequests` (`userKey`, `student_id`, `
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>ACHIEVERS UNIVERSITY LIBRARY | BORROW A BOOK</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Achievers University Library">
-    <meta name="theme-color" content="green">
+    <meta name="theme-color" content="#212529">
     <meta name="application-name" content="Achievers University Library">
     <meta name="description" content="A web application for connecting with Achievers University Library.">
-    <title>ACHIEVERS UNIVERSITY LIBRARY | BORROW A BOOK</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">

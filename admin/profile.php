@@ -109,12 +109,10 @@ include('checklogin.php');
 <body>
 <?php include("header.php"); ?>
 
-<div class="container my-4" style="padding-bottom:120px;">
-    <p class=" fade-in" style="font-size:18px;font-weight:400;">Hey, <?php echo htmlspecialchars($fullName); ?> </p>
+<div class="container fade-in my-4" style="padding-bottom:120px;">
+    <p class="fade-in" style="font-size:18px;font-weight:400;">Hey, <?php echo htmlspecialchars($fullName); ?> </p>
     <hr>
 
-    
-    <div class="row fade-in">
 
 
     <div id="page-content-wrapper" class="flex-grow-1">
@@ -123,7 +121,7 @@ include('checklogin.php');
     <div class="row mb-4">
       
         <div class="col-md-9">
-            <table class="table">
+            <table class="table table-bordered">
                 <tbody>
                     
                     <tr>

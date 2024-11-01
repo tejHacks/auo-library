@@ -41,7 +41,26 @@ include('checklogin.php');
 <!-- few scripts -->
     <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.js" defer></script>
     <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js" defer></script>
-    <script src="../assets/font-awesome/" defer></script>
+    
+    <style>
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar { background: #272727; width: 12px; }
+        ::-webkit-scrollbar-thumb { background: #808080; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background-color: #666; }
+
+        /* Container Styles */
+        .content-box {
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .content-box:hover {
+            transform: translateY(-5px);
+            background-color: #f1f1f1;
+        }
+    </style>
     <!-- other sylesheets -->
     <link rel="stylesheet" href="../assets/boxicons/css/boxicons.css">
     <link rel="stylesheet" href="../assets/boxicons/css/boxicons.min.css">

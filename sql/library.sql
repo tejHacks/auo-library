@@ -96,10 +96,10 @@ CREATE TABLE Lecturers(
   `StaffID` VARCHAR(20) NOT NULL UNIQUE,
   `Fullname` varchar(200) NOT NULL,
   `Email` varchar(200) NOT NULL UNIQUE,
-  `Phonenumber` varchar(20) NOT NULL,
+  `Mobile` varchar(20) NOT NULL,
   `Department` varchar(200) NOT NULL,
   `Gender` varchar(30) NOT NULL,
-  `JobTitle` varchar(200) NOT NULL,
+  `JobTitle` varchar(200) NOT NULL DEFAULT 'LECTURER',
   `Password` varchar(255) NOT NULL,
   `RecoveryKey` varchar(255) NOT NULL,
     `RegDate` timestamp DEFAULT current_timestamp(),
@@ -232,3 +232,39 @@ CREATE TABLE StudyMaterials (
     upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     uploaded_by VARCHAR(50)            -- Name or ID of the admin who uploaded the file
 );
+
+
+CREATE TABLE BorrowRequests (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id VARCHAR(50) NOT NULL,
+    borrowers_name VARCHAR(100) NOT NULL,
+    role ENUM('Student', 'Lecturer') NOT NULL,
+    book_id INT NOT NULL,
+    book_author VARCHAR(100),
+    publisher VARCHAR(100),
+    request_date DATE NOT NULL,
+    status ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending',
+    approved_by VARCHAR(100) DEFAULT NULL,    -- Librarian or admin who approved the request
+    notes TEXT DEFAULT NULL                   -- Optional notes about the request
+);
+
+
+CREATE TABLE IssuedBooks (
+    issue_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id VARCHAR(50) NOT NULL,          -- ID of the borrower
+    borrowers_name VARCHAR(100) NOT NULL,      -- Full name of the borrower
+    role VARCHAR(50) NOT NULL,                 -- Role of the borrower (e.g., Student, Lecturer)
+    book_id VARCHAR(50) NOT NULL,              -- Reference to the book ID
+    title VARCHAR(200) NOT NULL,               -- Title of the book
+    book_author VARCHAR(150) NOT NULL,         -- Author of the book
+    publisher VARCHAR(150) NOT NULL,           -- Publisher of the book
+    mobile VARCHAR(20) NOT NULL,               -- Borrower's mobile number
+    department VARCHAR(200) NOT NULL,          -- Borrower's department
+    issue_date DATE NOT NULL,                  -- Date the book was issued
+    due_date DATE NOT NULL,                    -- Date the book is due for return
+    return_date DATE DEFAULT NULL,             -- Date the book was returned
+    notes TEXT DEFAULT NULL                    -- Additional notes or comments
+);
+
+ALTER TABLE IssuedBooks
+ADD COLUMN returnStatus VARCHAR(50) DEFAULT 'Not Returned' NOT NULL;

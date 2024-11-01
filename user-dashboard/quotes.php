@@ -8,10 +8,10 @@ include('checklogin.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Achievers University Library">
-    <meta name="theme-color" content="green">
+    <meta name="theme-color" content="#212529">
     <meta name="application-name" content="Achievers University Library">
     <meta name="description" content="A web application for connecting with Achievers University Library.">
-    <title>ACHIEVERS UNIVERSITY LIBRARY | QUOTES PAGE</title>
+    <title>AUO LIBRARY | QUOTES PAGE</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
@@ -69,10 +69,10 @@ include('checklogin.php');
     <script>
         // List of quotes
         const quotes = [
-            { text: "Fear is the path to the dark side. Fear leads to anger, anger leads to hate, hate leads to suffering.", theme: "Fear" },
-            { text: "The only thing we have to fear is fear itself.", theme: "Fear" },
-            { text: "Success is not final, failure is not fatal: It is the courage to continue that counts.", theme: "Success" },
             { text: "Education is the most powerful weapon which you can use to change the world.", theme: "Education" },
+            { text: "The only thing we have to fear is fear itself.", theme: "Fear" },
+            { text: "Fear is the path to the dark side. Fear leads to anger, anger leads to hate, hate leads to suffering.", theme: "Fear" },
+            { text: "Success is not final, failure is not fatal: It is the courage to continue that counts.", theme: "Success" },
             { text: "The greatest glory in living lies not in never falling, but in rising every time we fall.", theme: "Courage" },
             { text: "Your time is limited, don't waste it living someone else's life.", theme: "Success" },
             { text: "The way to get started is to quit talking and begin doing.", theme: "Success" },
@@ -126,7 +126,7 @@ include('checklogin.php');
         ];
 
         let currentIndex = 0;
-        const quotesPerLoad = 5; // Number of quotes to display on each load
+        const quotesPerLoad = 1; // Number of quotes to display on each load
 
         function loadQuotes() {
             const quotesContainer = document.getElementById('quotesContainer');

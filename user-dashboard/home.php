@@ -8,11 +8,11 @@ include('checklogin.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="Achievers University Library">
-    <meta name="theme-color" content="green">
-    <meta name="application-name" content="Achievers University Library">
+    <meta name="keywords" content="Achievers University Library, Achievers University Library">
     <meta name="description" content="A web application for connecting with Achievers University Library.">
-    <title>ACHIEVERS UNIVERSITY LIBRARY | STUDENT DASHBOARD</title>
+    <meta name="application-name" content="Achievers University Library">
+    <meta name="theme-color" content="black">
+    <title>AUO LIBRARY | STUDENT DASHBOARD</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
@@ -48,7 +48,7 @@ include('checklogin.php');
 <body>
     <?php include("nav.php"); ?>
 
-    <div class="container my-4" style="padding-bottom:120px;">
+    <div class="container my-4" style="padding-bottom:30px;">
         <p class="fade-in" style="font-size:18px;font-weight:400;">Hi, <?php echo htmlspecialchars($fullName); ?>!</p>
         <hr>
 
@@ -135,5 +135,8 @@ include('checklogin.php');
             </div>
         </div>
     </div>
+
+<?php include('footer.php'); ?>
+
 </body>
 </html>

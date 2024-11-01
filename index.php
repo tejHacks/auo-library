@@ -66,12 +66,12 @@
               <li class="dropdown"><a href="#"><span>SIGNUP</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                 <ul>
                   <li><a href="signup_student.php">STUDENT<i class="fa fa-user text-primary"></i></a></li>
-                  <li><a href="signup_lecturer.php">LECTURER<i class="fa fa-user text-primary"></i></a></li>
+                  <li><a href="lecturer/signup.php">LECTURER<i class="fa fa-user text-primary"></i></a></li>
                 </ul>
               </li><li class="dropdown"><a href="#"><span>LOGIN</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                 <ul>
                   <li><a href="login_student.php">STUDENT<i class="fa fa-user text-success"></i></a></li>
-                  <li><a href="login_lecturer.php">LECTURER<i class="fa fa-user text-success"></i></a></li>
+                  <li><a href="lecturer/login.php">LECTURER<i class="fa fa-user text-success"></i></a></li>
                 </ul>
               </li>
              
