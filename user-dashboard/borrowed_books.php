@@ -1,15 +1,15 @@
 <?php
 session_start();
 include('checklogin.php'); // Ensure the user is logged in
-include('config.php'); // Database connection
+// include('config.php'); // Database connection
 
 // Define the student's ID from the session or from `checklogin.php`
-$studentID = $_SESSION['student_id'] ?? '';
+$studentID =  htmlspecialchars($studentID) ?? '';
 
 // Fetch user's borrowed books
 $borrowedBooks = [];
 if ($studentID) {
-    $sql = "SELECT * FROM BorrowedBooks WHERE student_id = ?";
+    $sql = "SELECT * FROM IssuedBooks WHERE student_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $studentID);
     $stmt->execute();
@@ -55,8 +55,12 @@ $conn->close();
                 <tr>
                     <th>Book ID</th>
                     <th>Title</th>
+                    <th>Author</th>
                     <th>Publisher</th>
-                    <th>Year Published</th>
+                    <th>Contact</th>
+                    <th>Date Issued</th>
+                    <th>Due Date</th>
+                    <th>Returned</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -64,11 +68,15 @@ $conn->close();
                 <?php if (!empty($borrowedBooks)): ?>
                     <?php foreach ($borrowedBooks as $book) : ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($book['bookID']); ?></td>
-                            <td><?php echo htmlspecialchars($book['bookTitle']); ?></td>
+                            <td><?php echo htmlspecialchars($book['book_id']); ?></td>
+                            <td><?php echo htmlspecialchars($book['title']); ?></td>
+                            <td><?php echo htmlspecialchars($book['book_author']); ?></td>
                             <td><?php echo htmlspecialchars($book['publisher']); ?></td>
-                            <td><?php echo htmlspecialchars($book['yearOfRelease']); ?></td>
-                            <td><?php echo htmlspecialchars($book['status']); ?></td>
+                            <td><?php echo htmlspecialchars($book['mobile']); ?></td>
+                            <td><?php echo htmlspecialchars($book['issue_date']); ?></td>
+                            <td><?php echo htmlspecialchars($book['due_date']); ?></td>
+                            <td><?php echo htmlspecialchars($book['return_date']); ?></td>
+                            <td><?php echo htmlspecialchars($book['returnStatus']); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

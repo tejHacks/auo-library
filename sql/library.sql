@@ -46,9 +46,13 @@ CREATE TABLE Student (
   `Department` VARCHAR(255) NOT NULL,
   `Course` VARCHAR(255) NOT NULL,
   `Password` VARCHAR(255) NOT NULL,
+  `RecoveryKey` varchar(255) NOT NULL,
   `RegDate` timestamp NULL DEFAULT current_timestamp(),
    `updationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB COLLATE utf8mb4_unicode_ci;
+
+ALTER TABLE Student
+ADD COLUMN `RecoveryKey` VARCHAR(50) NOT NULL DEFAULT 'STUDENT-DEFAULT';
 
 
 ALTER TABLE `Student` COLLATE utf8mb4_unicode_ci;
@@ -268,3 +272,15 @@ CREATE TABLE IssuedBooks (
 
 ALTER TABLE IssuedBooks
 ADD COLUMN returnStatus VARCHAR(50) DEFAULT 'Not Returned' NOT NULL;
+
+
+CREATE TABLE Message (
+    messageID INT AUTO_INCREMENT PRIMARY KEY,
+    studentID VARCHAR(20) NOT NULL,
+    fullName VARCHAR(255) NOT NULL,
+    messageType VARCHAR(200) NOT NULL,  -- Changed from ENUM to VARCHAR
+    date_sent DATE NOT NULL,
+    time_sent TIME NOT NULL,
+    messageText TEXT NOT NULL
+);
+

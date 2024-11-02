@@ -164,7 +164,7 @@ $conn->close();
         </p>
         <p>
             I forgot my password
-            <a style="text-decoration: none;" class="link-danger" href="reset-password.php">
+            <a style="text-decoration: none;" class="link-danger" href="reset_password.php">
                 Reset Here.
             </a>
         </p>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('checklogin.php');
-include('config.php');
+// include('config.php');
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

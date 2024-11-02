@@ -1,13 +1,21 @@
 <?php
-session_start();
-include('checklogin.php'); // Ensure the user is logged in and get student data
+// Check if user is logged in with checklogin.php and ensure variables exist
+include('checklogin.php'); 
+
+// Ensure student data exists
+$studentID = isset($studentID) ? htmlspecialchars($studentID) : null;
+$fullName = isset($fullName) ? htmlspecialchars($fullName) : null;
+
+if (!$studentID || !$fullName) {
+    header("Location: login.php"); // Redirect if not logged in
+    exit();
+}
 
 // Initialize variables
 $books = [];
 $successMessage = "";
 $bookDetails = "";
 $errorMessage = "";
-
 
 // Handle book search via AJAX
 if (isset($_GET['query'])) {
@@ -21,7 +29,7 @@ if (isset($_GET['query'])) {
         $result = $stmt->get_result();
         while ($row = $result->fetch_assoc()) {
             $books[] = [
-                'bookID' => $row['bookID'], // Ensure the correct field name
+                'bookID' => $row['bookID'],
                 'bookTitle' => $row['bookTitle'],
                 'author' => $row['author'],
                 'yearPublished' => $row['yearOfRelease'],
@@ -42,64 +50,25 @@ if (isset($_GET['query'])) {
 
 // Handle form submission to borrow a book
 if (isset($_POST['submit'])) {
-    // Sanitize and prepare book input data
     $bookID = htmlspecialchars($_POST['bookID']);
     $bookTitle = htmlspecialchars($_POST['bookTitle']);
-    $publisher = htmlspecialchars($_POST['publisher']); // Ensure this is filled in the form
+    $publisher = htmlspecialchars($_POST['publisher']);
     $yearPublished = htmlspecialchars($_POST['yearPublished']);
     $borrowerRole = 'Student';
-    // Ensure necessary data is present
-    // Debugging: Output values for inspection
-  $studentID =  htmlspecialchars($studentID);
-  $key = htmlspecialchars($studentID);
- $fullName = htmlspecialchars($fullName) ;
-  $mobile =  htmlspecialchars($mobile);
-  $course =  htmlspecialchars($course);
-   $level = htmlspecialchars($level);
-   
-
-    $unitsRequested = 1; // You can change this if your form allows multiple units to be borrowed
+    $key = $studentID . substr(md5(uniqid(rand(), true)), 0, 4); // Generate unique key for reference
+    $unitsRequested = 1; 
     $status = 'Pending';
 
+    // Insert the borrow request into BorrowRequests table
+    $stmt = $conn->prepare("INSERT INTO BorrowRequests (userKey, student_id, bookID, borrower_name, borrower_role, mobile, course, level, book_title, units_requested, publisher, yearOfRelease, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssssssssss", $key, $studentID, $bookID, $fullName, $borrowerRole, $mobile, $course, $level, $bookTitle, $unitsRequested, $publisher, $yearPublished, $status);
 
-   
-        // Debugging: Output values for inspection
-
-
-        // Insert the borrow request into BorrowRequests table
-$stmt = $conn->prepare("INSERT INTO `BorrowRequests` (`userKey`, `student_id`, `bookID`, `borrower_name`, `borrower_role`, `mobile`, `course`, `level`, `book_title`, `units_requested`, `publisher`, `yearOfRelease`, `status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        
-        // bind parameters to be sent to the database too:
-        $stmt->bind_param("sssssssssssss", $key,$studentID, $bookID, $fullName, $borrowerRole, $mobile, $course, $level, $bookTitle, $unitsRequested, $publisher, $yearPublished,$status);
-
-        if ($stmt->execute()) {
-            echo "<pre>";
-            echo "Student ID: " . htmlspecialchars($studentID) . "<br>";
-            echo "Key: " . htmlspecialchars($key) . "<br>";
-            echo "Book ID: " . htmlspecialchars($bookID) . "<br>";
-            echo "Full Name: " . htmlspecialchars($fullName) . "<br>";
-            echo "Borrower Role: " . htmlspecialchars($borrowerRole) . "<br>";
-            echo "Mobile: " . htmlspecialchars($mobile) . "<br>";
-            echo "Course: " . htmlspecialchars($course) . "<br>";
-            echo "Level: " . htmlspecialchars($level) . "<br>";
-            echo "Book Title: " . htmlspecialchars($bookTitle) . "<br>";
-            echo "Units Requested : " . htmlspecialchars($unitsRequested) . " <br>";
-            echo "Publisher: " . htmlspecialchars($publisher) . "<br>";
-            echo "Year Published: " . htmlspecialchars($yearPublished) . "<br>";
-            echo "Status: " . htmlspecialchars($status) . "<br>";
-            echo "</pre>";
-            header("location:home.php");
-            
-        } else {
-            // Improved error handling
-            echo "Insert Error: " . $stmt->error; // Log error for debugging
-            // $errorMessage = "Error: Unable to submit borrow request. Please try again later.";
-            // echo $errorMessage; // Output error message for debugging
-        }
-       
+    if ($stmt->execute()) {
+        echo "<script>alert('Book borrow request submitted successfully!'); window.location.href='home.php';</script>";
+    } else {
+        echo "Insert Error: " . $stmt->error;
     }
-
-
+}
 ?>
 
 <!DOCTYPE html>
@@ -154,8 +123,6 @@ $stmt = $conn->prepare("INSERT INTO `BorrowRequests` (`userKey`, `student_id`, `
         <h2 class="text-center">Borrow a Book</h2>
         <hr>
 
-    
-
         <form method="post" action="borrow.php" enctype="application/x-www-form-urlencoded">
             <div class="mb-3">
                 <label for="search" class="form-label">Search for a Book</label>
@@ -163,8 +130,6 @@ $stmt = $conn->prepare("INSERT INTO `BorrowRequests` (`userKey`, `student_id`, `
                 <div id="search-results" class="search-results"></div>
             </div>
 
-            <!-- Book Details Section -->
-            <!-- Book Details Section -->
             <div class="book-details" id="bookDetails">
                 <h5>Book Details</h5>
                 <p><strong>Book ID:</strong> <span id="detailBookID"></span></p>
@@ -181,7 +146,7 @@ $stmt = $conn->prepare("INSERT INTO `BorrowRequests` (`userKey`, `student_id`, `
             <input type="hidden" name="bookTitle" id="bookTitle">
             <input type="hidden" name="author" id="author">
             <input type="hidden" name="isbn" id="isbn">
-            <input type="hidden" name="publisher" id="publisher"> <!-- Ensure this is filled correctly -->
+            <input type="hidden" name="publisher" id="publisher">
             <input type="hidden" name="yearPublished" id="yearPublished">
 
             <button type="submit" name="submit" class="btn btn-primary">Submit Borrow Request</button>
@@ -189,12 +154,15 @@ $stmt = $conn->prepare("INSERT INTO `BorrowRequests` (`userKey`, `student_id`, `
     </div>
 
     <script>
+        let debounceTimer;
         function searchBooks() {
-            const query = document.getElementById('search').value;
-            const searchResultsDiv = document.getElementById('search-results');
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const query = document.getElementById('search').value;
+                const searchResultsDiv = document.getElementById('search-results');
 
-            if (query.length > 0) {
-                fetch(`borrow.php?query=${query}`)
+                if (query.length > 0) {
+                    fetch(`borrow.php?query=${query}`)
                     .then(response => response.json())
                     .then(data => {
                         searchResultsDiv.innerHTML = '';
@@ -210,9 +178,10 @@ $stmt = $conn->prepare("INSERT INTO `BorrowRequests` (`userKey`, `student_id`, `
                             searchResultsDiv.innerHTML = '<div>No results found.</div>';
                         }
                     });
-            } else {
-                searchResultsDiv.innerHTML = '';
-            }
+                } else {
+                    searchResultsDiv.innerHTML = '';
+                }
+            }, 300);
         }
 
         function selectBook(book) {
@@ -223,7 +192,6 @@ $stmt = $conn->prepare("INSERT INTO `BorrowRequests` (`userKey`, `student_id`, `
             document.getElementById('publisher').value = book.publisher;
             document.getElementById('yearPublished').value = book.yearPublished;
 
-            // Update the displayed book details
             document.getElementById('detailBookID').textContent = book.bookID;
             document.getElementById('detailTitle').textContent = book.bookTitle;
             document.getElementById('detailAuthor').textContent = book.author;
@@ -233,9 +201,7 @@ $stmt = $conn->prepare("INSERT INTO `BorrowRequests` (`userKey`, `student_id`, `
             document.getElementById('detailPublisher').textContent = book.publisher;
             document.getElementById('detailPages').textContent = book.pages;
 
-            // Show book details section
             document.getElementById('bookDetails').style.display = 'block';
-            document.getElementById('search-results').innerHTML = '';
         }
     </script>
 </body>

@@ -87,7 +87,7 @@
                     <ul class="dropdown-menu" aria-labelledby="staffDropdown">
                         <li><a class="dropdown-item" href="add_admin.php"><i class="fa fa-plus" style="color: white;"></i> Add New Staff</a></li>
                         <li><a class="dropdown-item" href="manage_admin.php"><i class="fa fa-cogs" style="color: white;"></i> Manage Staff</a></li>
-                        <li><a class="dropdown-item" href="admin_password_change.php"><i class="fa fa-cogs" style="color: white;"></i> Change Staff Password</a></li>
+                        <li><a class="dropdown-item" href="manage_admin.php"><i class="fa fa-cogs" style="color: white;"></i> Change Staff Password</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

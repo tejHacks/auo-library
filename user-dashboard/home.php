@@ -106,6 +106,22 @@ include('checklogin.php');
                     <a class="btn btn-outline-success" href="wishlist_add.php">Start a Wishlist</a>
                 </div>
             </div>
+            
+            <div class="col-md-6 col-lg-4 py-3">
+                <div class="content-box">
+                    <h5 class="text-success">See your borrow requests <i class="fa fa-heart fa-2x"></i></h5>
+                    <p>Manage your requests to borrow books and info.</p>
+                    <a class="btn btn-outline-success" href="view_borrow_requests.php">Manage Borrow Requests</a>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4 py-3">
+                <div class="content-box">
+                    <h5 class="text-success">Read all your Messages <i class="fa fa-heart fa-2x"></i></h5>
+                    <p>Manage your requests to borrow books and info.</p>
+                    <a class="btn btn-outline-success" href="messages.php">Manage Borrow Requests</a>
+                </div>
+            </div>
 
             <!-- To-Do List Section -->
             <div class="col-md-6 col-lg-4 py-3">

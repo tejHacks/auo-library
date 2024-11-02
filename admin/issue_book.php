@@ -9,18 +9,18 @@ $error_message = "";
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the form data
-    $student_id = $_POST['student_id'];
-    $borrowers_name = $_POST['borrowers_name'];
-    $role = $_POST['role'];
-    $book_id = $_POST['book_id'];
-    $title = $_POST['title'];
-    $book_author = $_POST['book_author'];
-    $publisher = $_POST['publisher'];
-    $mobile = $_POST['mobile'];
-    $department = $_POST['department'];
-    $issue_date = $_POST['issue_date'];
-    $due_date = $_POST['due_date'];
-    $notes = $_POST['notes'];
+    $student_id = htmlspecialchars($_POST['student_id']);
+    $borrowers_name = htmlspecialchars($_POST['borrowers_name']);
+    $role = htmlspecialchars($_POST['role']);
+    $book_id = htmlspecialchars($_POST['book_id']);
+    $title = htmlspecialchars($_POST['title']);
+    $book_author = htmlspecialchars($_POST['book_author']);
+    $publisher = htmlspecialchars($_POST['publisher']);
+    $mobile = htmlspecialchars($_POST['mobile']);
+    $department = htmlspecialchars($_POST['department']);
+    $issue_date = htmlspecialchars($_POST['issue_date']);
+    $due_date = htmlspecialchars($_POST['due_date']);
+    $notes = htmlspecialchars($_POST['notes']);
 
     // Prepare an SQL statement to insert the data into the IssuedBooks table
     $stmt = $conn->prepare("INSERT INTO IssuedBooks (student_id, borrowers_name, role, book_id, title, book_author, publisher, mobile, department, issue_date, due_date, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -62,7 +62,7 @@ $roles = ['Student', 'Lecturer'];
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="keywords" content="Achievers University Library, ACHIEVERS UNIVERSITY LIBRARY, AUO library">
    
-    <title>ACHIEVERS UNIVERSITY LIBRARY |ADMIN DASHBOARD </title>
+    <title>AUO LIBRARY | ISSUE A BOOK </title>
 
     <!-- Stylesheets -->
  
@@ -73,11 +73,26 @@ $roles = ['Student', 'Lecturer'];
     <link rel="stylesheet" type="text/css" href="../assets/boxicons/css/boxicons.css">
     <link rel="stylesheet" type="text/css" href="../assets/boxicons/css/boxicons.min.css">
     <link rel="icon" href="../assets/school.png" type="image/png">
+    <style>
+            ::-webkit-scrollbar{
+    background: #272727;
+   width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background: #808080;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover{
+    background-color: #666;
+}
+
+</style>
 </head>
 <body>
 
 <?php include('header.php'); ?>
-<div class="container">
+<div class="container  py-3" style="padding-bottom:40px;">
     <h2>Issue Book</h2>
 
     <?php if ($success_message): ?>
@@ -99,7 +114,7 @@ $roles = ['Student', 'Lecturer'];
 
     <form method="POST" action="">
         <div class="mb-3">
-            <label for="student_id" class="form-label">Student ID</label>
+            <label for="student_id" class="form-label">Student ID/ Staff ID</label>
             <input type="text" class="form-control" id="student_id" name="student_id" required>
         </div>
         <div class="mb-3">
