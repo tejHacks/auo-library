@@ -33,7 +33,7 @@ if (isset($_POST["submit"])) {
 
     // Prepare and execute the parameterized query
 
-    $stmt = $conn->prepare("INSERT INTO `Student` (`StudentID`, `Fullname`, `Email`, `MobileNumber`, `Gender`, `Level`, `Course`, `Password`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO `student` (`StudentID`, `Fullname`, `Email`, `MobileNumber`, `Gender`, `Level`, `Course`, `Password`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssssss", $studentID,$fullname, $email, $mobileNumber, $gender, $level, $course, $Password);
 
     if ($stmt->execute()) {
@@ -165,6 +165,11 @@ $conn->close();
                     </div>
 
                     <div class="form-group text-left">
+                        <label for="department">Department</label>
+                        <input type="text" class="form-control" name="Department" id="department" placeholder="Mathematical Sciences" required>
+                    </div>
+
+                    <div class="form-group text-left">
                         <label for="course">Course of Study</label>
                         <input type="text" class="form-control" name="Course" id="course" placeholder="Computer Science" required>
                     </div>
@@ -174,7 +179,7 @@ $conn->close();
                         <label for="Password">Password</label>
                         <input type="password" class="form-control" onBlur="checkPasswordLength();" name="password" id="Password" placeholder="Type desired password" required> 
                         <span id="user-password" style="font-size:12px;color:red;float:left;"></span>
-                    </div>
+                    </div><br>
                     <script type="text/javascript">
                     function lock() {
                         $('#submit').prop('disabled', true);
